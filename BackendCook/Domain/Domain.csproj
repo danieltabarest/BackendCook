@@ -49,8 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Recipe.cs" />
+    <Compile Include="Cuisine.cs" />
+    <Compile Include="Chef.cs" />
     <Compile Include="DataContext.cs" />
-    <Compile Include="Ingrediente.cs" />
+    <Compile Include="Ingredient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

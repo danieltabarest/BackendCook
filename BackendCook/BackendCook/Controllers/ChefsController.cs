@@ -8,110 +8,112 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
+using BackendCook.Models;
 
 namespace BackendCook.Controllers
 {
-    public class IngredientesController : Controller
+    [Authorize]
+    public class ChefsController : Controller
     {
-        private DataContext db = new DataContext();
+        private DataContextLocal db = new DataContextLocal();
 
-        // GET: Ingredientes
+        // GET: Chefs
         public async Task<ActionResult> Index()
         {
-            return View(await db.Ingredientes.ToListAsync());
+            return View(await db.Chefs.ToListAsync());
         }
 
-        // GET: Ingredientes/Details/5
+        // GET: Chefs/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ingrediente ingrediente = await db.Ingredientes.FindAsync(id);
-            if (ingrediente == null)
+            Chef chef = await db.Chefs.FindAsync(id);
+            if (chef == null)
             {
                 return HttpNotFound();
             }
-            return View(ingrediente);
+            return View(chef);
         }
 
-        // GET: Ingredientes/Create
+        // GET: Chefs/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Ingredientes/Create
+        // POST: Chefs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IngredienteId,Nombre,Descripcion")] Ingrediente ingrediente)
+        public async Task<ActionResult> Create([Bind(Include = "ChefId,FirstName,LastName")] Chef chef)
         {
             if (ModelState.IsValid)
             {
-                db.Ingredientes.Add(ingrediente);
+                db.Chefs.Add(chef);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            return View(ingrediente);
+            return View(chef);
         }
 
-        // GET: Ingredientes/Edit/5
+        // GET: Chefs/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ingrediente ingrediente = await db.Ingredientes.FindAsync(id);
-            if (ingrediente == null)
+            Chef chef = await db.Chefs.FindAsync(id);
+            if (chef == null)
             {
                 return HttpNotFound();
             }
-            return View(ingrediente);
+            return View(chef);
         }
 
-        // POST: Ingredientes/Edit/5
+        // POST: Chefs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IngredienteId,Nombre,Descripcion")] Ingrediente ingrediente)
+        public async Task<ActionResult> Edit([Bind(Include = "ChefId,FirstName,LastName")] Chef chef)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ingrediente).State = EntityState.Modified;
+                db.Entry(chef).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(ingrediente);
+            return View(chef);
         }
 
-        // GET: Ingredientes/Delete/5
+        // GET: Chefs/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ingrediente ingrediente = await db.Ingredientes.FindAsync(id);
-            if (ingrediente == null)
+            Chef chef = await db.Chefs.FindAsync(id);
+            if (chef == null)
             {
                 return HttpNotFound();
             }
-            return View(ingrediente);
+            return View(chef);
         }
 
-        // POST: Ingredientes/Delete/5
+        // POST: Chefs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Ingrediente ingrediente = await db.Ingredientes.FindAsync(id);
-            db.Ingredientes.Remove(ingrediente);
+            Chef chef = await db.Chefs.FindAsync(id);
+            db.Chefs.Remove(chef);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

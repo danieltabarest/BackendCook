@@ -18,16 +18,16 @@ namespace Api.Controllers
         private DataContext db = new DataContext();
 
         // GET: api/Ingredientes
-        public IQueryable<Ingrediente> GetIngredientes()
+        public IQueryable<Ingredient> GetIngredientes()
         {
             return db.Ingredientes;
         }
 
         // GET: api/Ingredientes/5
-        [ResponseType(typeof(Ingrediente))]
+        [ResponseType(typeof(Ingredient))]
         public IHttpActionResult GetIngrediente(int id)
         {
-            Ingrediente ingrediente = db.Ingredientes.Find(id);
+            Ingredient ingrediente = db.Ingredientes.Find(id);
             if (ingrediente == null)
             {
                 return NotFound();
@@ -38,14 +38,14 @@ namespace Api.Controllers
 
         // PUT: api/Ingredientes/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutIngrediente(int id, Ingrediente ingrediente)
+        public IHttpActionResult PutIngrediente(int id, Ingredient ingrediente)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != ingrediente.IngredienteId)
+            if (id != ingrediente.IngredientId)
             {
                 return BadRequest();
             }
@@ -72,8 +72,8 @@ namespace Api.Controllers
         }
 
         // POST: api/Ingredientes
-        [ResponseType(typeof(Ingrediente))]
-        public IHttpActionResult PostIngrediente(Ingrediente ingrediente)
+        [ResponseType(typeof(Ingredient))]
+        public IHttpActionResult PostIngrediente(Ingredient ingrediente)
         {
             if (!ModelState.IsValid)
             {
@@ -83,14 +83,14 @@ namespace Api.Controllers
             db.Ingredientes.Add(ingrediente);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = ingrediente.IngredienteId }, ingrediente);
+            return CreatedAtRoute("DefaultApi", new { id = ingrediente.IngredientId }, ingrediente);
         }
 
         // DELETE: api/Ingredientes/5
-        [ResponseType(typeof(Ingrediente))]
+        [ResponseType(typeof(Ingredient))]
         public IHttpActionResult DeleteIngrediente(int id)
         {
-            Ingrediente ingrediente = db.Ingredientes.Find(id);
+            Ingredient ingrediente = db.Ingredientes.Find(id);
             if (ingrediente == null)
             {
                 return NotFound();
@@ -113,7 +113,7 @@ namespace Api.Controllers
 
         private bool IngredienteExists(int id)
         {
-            return db.Ingredientes.Count(e => e.IngredienteId == id) > 0;
+            return db.Ingredientes.Count(e => e.IngredientId == id) > 0;
         }
     }
 }

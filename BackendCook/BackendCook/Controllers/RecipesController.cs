@@ -8,19 +8,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
-using BackendCook.Models;
 
 namespace BackendCook.Controllers
 {
-    [Authorize]
     public class RecipesController : Controller
     {
-        private DataContextLocal db = new DataContextLocal();
+        private DataContext db = new DataContext();
 
         // GET: Recipes
         public async Task<ActionResult> Index()
         {
-            var recipes = db.Recipes.Include(r => r.Chef);
+            var recipes = db.Recipes.Include(r => r.Chef).Include(r => r.Cuisine).Include(r => r.Ingredient);
             return View(await recipes.ToListAsync());
         }
 
@@ -43,6 +41,8 @@ namespace BackendCook.Controllers
         public ActionResult Create()
         {
             ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName");
+            ViewBag.CuisineId = new SelectList(db.Cuisines, "CuisineId", "Name");
+            ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name");
             return View();
         }
 
@@ -61,6 +61,8 @@ namespace BackendCook.Controllers
             }
 
             ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", recipe.ChefId);
+            ViewBag.CuisineId = new SelectList(db.Cuisines, "CuisineId", "Name", recipe.CuisineId);
+            ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name", recipe.IngredientId);
             return View(recipe);
         }
 
@@ -77,6 +79,8 @@ namespace BackendCook.Controllers
                 return HttpNotFound();
             }
             ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", recipe.ChefId);
+            ViewBag.CuisineId = new SelectList(db.Cuisines, "CuisineId", "Name", recipe.CuisineId);
+            ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name", recipe.IngredientId);
             return View(recipe);
         }
 
@@ -94,6 +98,8 @@ namespace BackendCook.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", recipe.ChefId);
+            ViewBag.CuisineId = new SelectList(db.Cuisines, "CuisineId", "Name", recipe.CuisineId);
+            ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name", recipe.IngredientId);
             return View(recipe);
         }
 

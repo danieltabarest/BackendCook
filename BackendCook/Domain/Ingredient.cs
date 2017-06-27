@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,6 @@ namespace Domain
         [Required(ErrorMessage = "The field {0} is required")]
         [Display(Name = "Amount")]
         public int Amount{ get; set; }
-        public virtual Recipe Recipes { get; set; }
+        public virtual Collection<Recipe> Recipes { get; set; }
     }
 }

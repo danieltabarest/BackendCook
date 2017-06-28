@@ -8,12 +8,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Domain;
+using BackendCook.Models;
 
 namespace BackendCook.Controllers
 {
     public class IngredientsController : Controller
     {
-        private DataContext db = new DataContext();
+        private DataContextLocal db = new DataContextLocal();
 
         // GET: Ingredients
         public async Task<ActionResult> Index()
@@ -124,5 +125,122 @@ namespace BackendCook.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        /*******************************/
+        // GET: IngredientMerges
+        public async Task<ActionResult> IndexMerges()
+        {
+            var ingredientMerges = db.IngredientMerges.Include(i => i.Ingredient);
+            return View(await ingredientMerges.ToListAsync());
+        }
+
+        // GET: IngredientMerges/Details/5
+        public async Task<ActionResult> DetailsMerges(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
+            if (ingredientMerge == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ingredientMerge);
+        }
+
+        // GET: IngredientMerges/Create
+        public async Task<ActionResult> CreateMerge(int? id)
+        {
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var ingredientes = await db.Ingredientes.FindAsync(id);
+                if (ingredientes == null)
+                {
+                    return HttpNotFound();
+                }
+
+                var view = new IngredientMerge { IngredientId = ingredientes.IngredientId, };
+                return View(view);
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+            //ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name");
+            //return View();
+        }
+
+        // POST: IngredientMerges/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateMerge(IngredientMerge ingredientMerge)
+        {
+            if (ModelState.IsValid)
+            {
+                db.IngredientMerges.Add(ingredientMerge);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name", ingredientMerge.IngredientId);
+            return View(ingredientMerge);
+        }
+
+        // GET: IngredientMerges/Edit/5
+        public async Task<ActionResult> EditMerges(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
+            if (ingredientMerge == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name", ingredientMerge.IngredientId);
+            return View(ingredientMerge);
+        }
+
+        // POST: IngredientMerges/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditMerges([Bind(Include = "IngredientMergeId,Name,IngredientId")] IngredientMerge ingredientMerge)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(ingredientMerge).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name", ingredientMerge.IngredientId);
+            return View(ingredientMerge);
+        }
+
+        // GET: IngredientMerges/Delete/5
+        public async Task<ActionResult> DeleteMerges(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
+            if (ingredientMerge == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ingredientMerge);
+        }
+
     }
 }

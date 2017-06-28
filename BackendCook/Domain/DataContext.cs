@@ -28,5 +28,9 @@ namespace Domain
         public System.Data.Entity.DbSet<Domain.Chef> Chefs { get; set; }
 
         public System.Data.Entity.DbSet<Domain.Cuisine> Cuisines { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.CuisineMerge> CuisineMerges { get; set; }
+
+        public System.Data.Entity.DbSet<Domain.IngredientMerge> IngredientMerges { get; set; }
     }
 }

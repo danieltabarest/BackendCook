@@ -15,12 +15,6 @@
             @Html.DisplayNameFor(model => model.Chef.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cuisine.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ingredient.Name)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
@@ -28,6 +22,12 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CuisineId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IngredientId)
         </th>
         <th></th>
     </tr>
@@ -38,12 +38,6 @@
             @Html.DisplayFor(modelItem => item.Chef.FirstName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Cuisine.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ingredient.Name)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
@@ -51,6 +45,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CuisineId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IngredientId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RecipeId }) |

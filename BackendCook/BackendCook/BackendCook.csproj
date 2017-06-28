@@ -169,8 +169,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChefsController.cs" />
+    <Compile Include="Controllers\CuisineMergesController.cs" />
     <Compile Include="Controllers\CuisinesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IngredientMergesController.cs" />
     <Compile Include="Controllers\IngredientsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
@@ -260,6 +262,17 @@
     <Content Include="Views\Recipes\Details.cshtml" />
     <Content Include="Views\Recipes\Edit.cshtml" />
     <Content Include="Views\Recipes\Index.cshtml" />
+    <Content Include="Views\CuisineMerges\Create.cshtml" />
+    <Content Include="Views\CuisineMerges\Delete.cshtml" />
+    <Content Include="Views\CuisineMerges\Details.cshtml" />
+    <Content Include="Views\CuisineMerges\Edit.cshtml" />
+    <Content Include="Views\CuisineMerges\Index.cshtml" />
+    <Content Include="Views\IngredientMerges\Create.cshtml" />
+    <Content Include="Views\IngredientMerges\Delete.cshtml" />
+    <Content Include="Views\IngredientMerges\Details.cshtml" />
+    <Content Include="Views\IngredientMerges\Edit.cshtml" />
+    <Content Include="Views\IngredientMerges\Index.cshtml" />
+    <Content Include="Views\Ingredients\CreateMerge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

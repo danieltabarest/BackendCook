@@ -12,112 +12,131 @@ using BackendCook.Models;
 
 namespace BackendCook.Controllers
 {
-    public class RecipesController : Controller
+    public class IngredientGroupsController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
 
-        // GET: Recipes
+        // GET: IngredientGroups
         public async Task<ActionResult> Index()
         {
-            var recipes = db.Recipes.Include(r => r.Chef);
-            return View(await recipes.ToListAsync());
+            return View(await db.IngredientGroups.ToListAsync());
         }
 
-        // GET: Recipes/Details/5
+        // GET: IngredientGroups/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recipe recipe = await db.Recipes.FindAsync(id);
-            if (recipe == null)
+            IngredientGroups ingredientGroups = await db.IngredientGroups.FindAsync(id);
+            if (ingredientGroups == null)
             {
                 return HttpNotFound();
             }
-            return View(recipe);
+            return View(ingredientGroups);
         }
 
-        // GET: Recipes/Create
-        public ActionResult Create()
+        // GET: IngredientGroups/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
+
+        public async Task<ActionResult> Create(int? id)
         {
-            ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName");
-            return View();
+            try
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var ingredientes = await db.Ingredientes.FindAsync(id);
+                if (ingredientes == null)
+                {
+                    return HttpNotFound();
+                }
+
+                var view = new IngredientGroups { IngredientId = ingredientes.IngredientId, };
+                return View(view);
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
         }
 
-        // POST: Recipes/Create
+
+        // POST: IngredientGroups/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RecipeId,Name,Direction,Rating,ChefId,CuisineId,IngredientId")] Recipe recipe)
+        public async Task<ActionResult> Create([Bind(Include = "IngredientGroupId,Name")] IngredientGroups ingredientGroups)
         {
             if (ModelState.IsValid)
             {
-                db.Recipes.Add(recipe);
+                db.IngredientGroups.Add(ingredientGroups);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", recipe.ChefId);
-            return View(recipe);
+            return View(ingredientGroups);
         }
 
-        // GET: Recipes/Edit/5
+        // GET: IngredientGroups/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recipe recipe = await db.Recipes.FindAsync(id);
-            if (recipe == null)
+            IngredientGroups ingredientGroups = await db.IngredientGroups.FindAsync(id);
+            if (ingredientGroups == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", recipe.ChefId);
-            return View(recipe);
+            return View(ingredientGroups);
         }
 
-        // POST: Recipes/Edit/5
+        // POST: IngredientGroups/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "RecipeId,Name,Direction,Rating,ChefId,CuisineId,IngredientId")] Recipe recipe)
+        public async Task<ActionResult> Edit([Bind(Include = "IngredientGroupId,Name")] IngredientGroups ingredientGroups)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(recipe).State = EntityState.Modified;
+                db.Entry(ingredientGroups).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", recipe.ChefId);
-            return View(recipe);
+            return View(ingredientGroups);
         }
 
-        // GET: Recipes/Delete/5
+        // GET: IngredientGroups/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recipe recipe = await db.Recipes.FindAsync(id);
-            if (recipe == null)
+            IngredientGroups ingredientGroups = await db.IngredientGroups.FindAsync(id);
+            if (ingredientGroups == null)
             {
                 return HttpNotFound();
             }
-            return View(recipe);
+            return View(ingredientGroups);
         }
 
-        // POST: Recipes/Delete/5
+        // POST: IngredientGroups/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Recipe recipe = await db.Recipes.FindAsync(id);
-            db.Recipes.Remove(recipe);
+            IngredientGroups ingredientGroups = await db.IngredientGroups.FindAsync(id);
+            db.IngredientGroups.Remove(ingredientGroups);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

@@ -12,112 +12,112 @@ using BackendCook.Models;
 
 namespace BackendCook.Controllers
 {
-    public class RecipesController : Controller
+    public class CuisineMergesController : Controller
     {
         private DataContextLocal db = new DataContextLocal();
 
-        // GET: Recipes
+        // GET: CuisineMerges
         public async Task<ActionResult> Index()
         {
-            var recipes = db.Recipes.Include(r => r.Chef);
-            return View(await recipes.ToListAsync());
+            var cuisineMerges = db.CuisineMerges.Include(c => c.Cuisine);
+            return View(await cuisineMerges.ToListAsync());
         }
 
-        // GET: Recipes/Details/5
+        // GET: CuisineMerges/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recipe recipe = await db.Recipes.FindAsync(id);
-            if (recipe == null)
+            CuisineMerge cuisineMerge = await db.CuisineMerges.FindAsync(id);
+            if (cuisineMerge == null)
             {
                 return HttpNotFound();
             }
-            return View(recipe);
+            return View(cuisineMerge);
         }
 
-        // GET: Recipes/Create
+        // GET: CuisineMerges/Create
         public ActionResult Create()
         {
-            ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName");
+            ViewBag.CuisineId = new SelectList(db.Cuisines, "CuisineId", "Name");
             return View();
         }
 
-        // POST: Recipes/Create
+        // POST: CuisineMerges/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RecipeId,Name,Direction,Rating,ChefId,CuisineId,IngredientId")] Recipe recipe)
+        public async Task<ActionResult> Create([Bind(Include = "CuisineMergeId,Name,CuisineId")] CuisineMerge cuisineMerge)
         {
             if (ModelState.IsValid)
             {
-                db.Recipes.Add(recipe);
+                db.CuisineMerges.Add(cuisineMerge);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", recipe.ChefId);
-            return View(recipe);
+            ViewBag.CuisineId = new SelectList(db.Cuisines, "CuisineId", "Name", cuisineMerge.CuisineId);
+            return View(cuisineMerge);
         }
 
-        // GET: Recipes/Edit/5
+        // GET: CuisineMerges/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recipe recipe = await db.Recipes.FindAsync(id);
-            if (recipe == null)
+            CuisineMerge cuisineMerge = await db.CuisineMerges.FindAsync(id);
+            if (cuisineMerge == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", recipe.ChefId);
-            return View(recipe);
+            ViewBag.CuisineId = new SelectList(db.Cuisines, "CuisineId", "Name", cuisineMerge.CuisineId);
+            return View(cuisineMerge);
         }
 
-        // POST: Recipes/Edit/5
+        // POST: CuisineMerges/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "RecipeId,Name,Direction,Rating,ChefId,CuisineId,IngredientId")] Recipe recipe)
+        public async Task<ActionResult> Edit([Bind(Include = "CuisineMergeId,Name,CuisineId")] CuisineMerge cuisineMerge)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(recipe).State = EntityState.Modified;
+                db.Entry(cuisineMerge).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", recipe.ChefId);
-            return View(recipe);
+            ViewBag.CuisineId = new SelectList(db.Cuisines, "CuisineId", "Name", cuisineMerge.CuisineId);
+            return View(cuisineMerge);
         }
 
-        // GET: Recipes/Delete/5
+        // GET: CuisineMerges/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recipe recipe = await db.Recipes.FindAsync(id);
-            if (recipe == null)
+            CuisineMerge cuisineMerge = await db.CuisineMerges.FindAsync(id);
+            if (cuisineMerge == null)
             {
                 return HttpNotFound();
             }
-            return View(recipe);
+            return View(cuisineMerge);
         }
 
-        // POST: Recipes/Delete/5
+        // POST: CuisineMerges/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Recipe recipe = await db.Recipes.FindAsync(id);
-            db.Recipes.Remove(recipe);
+            CuisineMerge cuisineMerge = await db.CuisineMerges.FindAsync(id);
+            db.CuisineMerges.Remove(cuisineMerge);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

@@ -32,8 +32,9 @@ namespace Domain
 
         public int IngredientId { get; set; }
 
-        public virtual Ingredient Ingredient { get; set; }
-        public virtual Cuisine Cuisine { get; set; }
+        public virtual Collection<IngredientMerge> IngredientMerge { get; set; }
+
+        public virtual Collection<CuisineMerge> Cuisine { get; set; }
         public virtual Chef Chef{ get; set; }
 
 

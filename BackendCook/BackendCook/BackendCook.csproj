@@ -169,8 +169,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChefsController.cs" />
+    <Compile Include="Controllers\CuisineGroupsController.cs" />
     <Compile Include="Controllers\CuisinesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IngredientGroupsController.cs" />
     <Compile Include="Controllers\IngredientsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
@@ -260,6 +262,19 @@
     <Content Include="Views\Recipes\Details.cshtml" />
     <Content Include="Views\Recipes\Edit.cshtml" />
     <Content Include="Views\Recipes\Index.cshtml" />
+    <Content Include="Views\CuisineGroups\Create.cshtml" />
+    <Content Include="Views\CuisineGroups\Delete.cshtml" />
+    <Content Include="Views\CuisineGroups\Details.cshtml" />
+    <Content Include="Views\CuisineGroups\Edit.cshtml" />
+    <Content Include="Views\CuisineGroups\Index.cshtml" />
+    <Content Include="Views\IngredientGroups\Create.cshtml" />
+    <Content Include="Views\IngredientGroups\Delete.cshtml" />
+    <Content Include="Views\IngredientGroups\Details.cshtml" />
+    <Content Include="Views\IngredientGroups\Edit.cshtml" />
+    <Content Include="Views\IngredientGroups\Index.cshtml" />
+    <Content Include="Views\Ingredients\CreateGroup.cshtml" />
+    <Content Include="Views\Recipes\CreateGroupIngredient.cshtml" />
+    <Content Include="Views\Recipes\CreateCuisineGroups.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

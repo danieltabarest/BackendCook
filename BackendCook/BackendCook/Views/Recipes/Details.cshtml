@@ -19,22 +19,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Cuisine.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cuisine.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Ingredient.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Ingredient.Name)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
 
@@ -58,9 +42,107 @@
             @Html.DisplayFor(model => model.Rating)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.CuisineId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CuisineId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IngredientId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IngredientId)
+        </dd>
+
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.RecipeId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Create Group Ingredient", "CreateGroupIngredient", new { id = Model.RecipeId })|
+    @Html.ActionLink("Create Cuisine Groups", "CreateCuisineGroups", new { id = Model.RecipeId })|
+    @Html.ActionLink("Back to List", "Index")|
 </p>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Ingredient Groups</h4>
+        @if (Model.IngredientGroups.Count == 0)
+        {
+            <h5>No Ingredient Groups registered yet</h5>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IngredientGroups.FirstOrDefault().Name)
+                    </th>
+                    <th>
+                        @*#Teams*@
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.IngredientGroups.OrderBy(g => g.Name))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.TournamentTeams.Count)*@
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditGroup", new { id = item.IngredientGroupId })
+                            @Html.ActionLink("Details", "DetailsGroup", new { id = item.IngredientGroupId })
+                            @Html.ActionLink("Delete", "DeleteGroup", new { id = item.IngredientGroupId })
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        }
+    </div>
+    <div class="col-md-6">
+        <h4>Cuisine Group</h4>
+        @if (Model.CuisineGroup.Count == 0)
+        {
+            <h5>No Cuisine Group registered yet</h5>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CuisineGroup.FirstOrDefault().Name)
+                    </th>
+                    <th>
+                        @*# Matches*@
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.CuisineGroup.OrderBy(g => g.Name))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.Matches.Count)*@
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditDate", new { id = item.CuisineId })
+                            @Html.ActionLink("Details", "DetailsDate", new { id = item.CuisineId })
+                            @Html.ActionLink("Delete", "DeleteDate", new { id = item.CuisineId })
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        }
+
+    </div>
+</div>

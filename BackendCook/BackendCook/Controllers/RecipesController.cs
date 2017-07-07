@@ -138,7 +138,7 @@ namespace BackendCook.Controllers
         // GET: IngredientMerges
         public async Task<ActionResult> IndexIngredientMerges()
         {
-            var ingredientMerges = db.IngredientMerges.Include(i => i.Ingredient);
+            var ingredientMerges = db.IngredientMerge.Include(i => i.Ingredient);
             return View(await ingredientMerges.ToListAsync());
         }
 
@@ -149,7 +149,7 @@ namespace BackendCook.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
+            IngredientMerge ingredientMerge = await db.IngredientMerge.FindAsync(id);
             if (ingredientMerge == null)
             {
                 return HttpNotFound();
@@ -182,7 +182,7 @@ namespace BackendCook.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.IngredientMerges.Add(ingredientMerge);
+                db.IngredientMerge.Add(ingredientMerge);
                 await db.SaveChangesAsync();
                 return RedirectToAction(string.Format("Details/{0}", ingredientMerge.RecipeId));
             }
@@ -196,7 +196,7 @@ namespace BackendCook.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
+            IngredientMerge ingredientMerge = await db.IngredientMerge.FindAsync(id);
             if (ingredientMerge == null)
             {
                 return HttpNotFound();
@@ -229,7 +229,7 @@ namespace BackendCook.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
+            IngredientMerge ingredientMerge = await db.IngredientMerge.FindAsync(id);
             if (ingredientMerge == null)
             {
                 return HttpNotFound();

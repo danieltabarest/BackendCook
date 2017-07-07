@@ -140,7 +140,7 @@ namespace BackendCook.Controllers
                     return HttpNotFound();
                 }
 
-                var view = new IngredientGroups { IngredientId = ingredientes.IngredientId, };
+                var view = new IngredientMerge { IngredientId = ingredientes.IngredientId, };
                 return View(view);
             }
             catch (Exception ex)
@@ -148,28 +148,28 @@ namespace BackendCook.Controllers
                 return View();
             }
         }
-        // GET: IngredientGroups
+        // GET: IngredientMerge
         public async Task<ActionResult> IndexGroup()
         {
-            return View(await db.IngredientGroups.ToListAsync());
+            return View(await db.IngredientMerge.ToListAsync());
         }
 
-        // GET: IngredientGroups/Details/5
+        // GET: IngredientMerge/Details/5
         public async Task<ActionResult> DetailsGroup(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IngredientGroups ingredientGroups = await db.IngredientGroups.FindAsync(id);
-            if (ingredientGroups == null)
+            IngredientMerge IngredientMerge = await db.IngredientMerge.FindAsync(id);
+            if (IngredientMerge == null)
             {
                 return HttpNotFound();
             }
-            return View(ingredientGroups);
+            return View(IngredientMerge);
         }
 
-        // GET: IngredientGroups/Create
+        // GET: IngredientMerge/Create
         //public ActionResult Create()
         //{
         //    return View();
@@ -177,52 +177,52 @@ namespace BackendCook.Controllers
 
 
 
-        // POST: IngredientGroups/Create
+        // POST: IngredientMerge/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateGroup( IngredientGroups ingredientGroups)
+        public async Task<ActionResult> CreateGroup( IngredientMerge IngredientMerge)
         {
             if (ModelState.IsValid)
             {
-                db.IngredientGroups.Add(ingredientGroups);
+                db.IngredientMerge.Add(IngredientMerge);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             
-            return View(ingredientGroups);
+            return View(IngredientMerge);
         }
 
-        // GET: IngredientGroups/Edit/5
+        // GET: IngredientMerge/Edit/5
         public async Task<ActionResult> EditGroup(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IngredientGroups ingredientGroups = await db.IngredientGroups.FindAsync(id);
-            if (ingredientGroups == null)
+            IngredientMerge IngredientMerge = await db.IngredientMerge.FindAsync(id);
+            if (IngredientMerge == null)
             {
                 return HttpNotFound();
             }
-            return View(ingredientGroups);
+            return View(IngredientMerge);
         }
 
-        // POST: IngredientGroups/Edit/5
+        // POST: IngredientMerge/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IngredientGroupId,Name")] IngredientGroups ingredientGroups)
+        public async Task<ActionResult> Edit([Bind(Include = "IngredientGroupId,Name")] IngredientMerge IngredientMerge)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ingredientGroups).State = EntityState.Modified;
+                db.Entry(IngredientMerge).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(ingredientGroups);
+            return View(IngredientMerge);
         }
 
  

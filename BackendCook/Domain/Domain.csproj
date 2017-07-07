@@ -49,13 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CuisineGroup.cs" />
+    <Compile Include="CuisineMerge.cs" />
     <Compile Include="Ingredient.cs" />
+    <Compile Include="IngredientMerge.cs" />
     <Compile Include="Recipe.cs" />
     <Compile Include="Cuisine.cs" />
     <Compile Include="Chef.cs" />
     <Compile Include="DataContext.cs" />
-    <Compile Include="IngredientGroups.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

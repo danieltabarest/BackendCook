@@ -21,6 +21,6 @@ namespace Domain
         [Required(ErrorMessage = "The field {0} is required")]
         [Display(Name = "Amount")]
         public int Amount{ get; set; }
-        public virtual Collection<IngredientGroups> Recipes { get; set; }
+        public virtual Collection<IngredientMerge> Recipes { get; set; }
     }
 }

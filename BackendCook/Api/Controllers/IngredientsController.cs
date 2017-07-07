@@ -6,59 +6,59 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Domain;
 
 namespace Api.Controllers
 {
-    [Authorize]
-    public class IngredientesController : ApiController
+    public class IngredientsController : ApiController
     {
         private DataContext db = new DataContext();
 
-        // GET: api/Ingredientes
+        // GET: api/Ingredients
         public IQueryable<Ingredient> GetIngredientes()
         {
             return db.Ingredientes;
         }
 
-        // GET: api/Ingredientes/5
+        // GET: api/Ingredients/5
         [ResponseType(typeof(Ingredient))]
-        public IHttpActionResult GetIngrediente(int id)
+        public async Task<IHttpActionResult> GetIngredient(int id)
         {
-            Ingredient ingrediente = db.Ingredientes.Find(id);
-            if (ingrediente == null)
+            Ingredient ingredient = await db.Ingredientes.FindAsync(id);
+            if (ingredient == null)
             {
                 return NotFound();
             }
 
-            return Ok(ingrediente);
+            return Ok(ingredient);
         }
 
-        // PUT: api/Ingredientes/5
+        // PUT: api/Ingredients/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutIngrediente(int id, Ingredient ingrediente)
+        public async Task<IHttpActionResult> PutIngredient(int id, Ingredient ingredient)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != ingrediente.IngredientId)
+            if (id != ingredient.IngredientId)
             {
                 return BadRequest();
             }
 
-            db.Entry(ingrediente).State = EntityState.Modified;
+            db.Entry(ingredient).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!IngredienteExists(id))
+                if (!IngredientExists(id))
                 {
                     return NotFound();
                 }
@@ -71,35 +71,35 @@ namespace Api.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Ingredientes
+        // POST: api/Ingredients
         [ResponseType(typeof(Ingredient))]
-        public IHttpActionResult PostIngrediente(Ingredient ingrediente)
+        public async Task<IHttpActionResult> PostIngredient(Ingredient ingredient)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Ingredientes.Add(ingrediente);
-            db.SaveChanges();
+            db.Ingredientes.Add(ingredient);
+            await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = ingrediente.IngredientId }, ingrediente);
+            return CreatedAtRoute("DefaultApi", new { id = ingredient.IngredientId }, ingredient);
         }
 
-        // DELETE: api/Ingredientes/5
+        // DELETE: api/Ingredients/5
         [ResponseType(typeof(Ingredient))]
-        public IHttpActionResult DeleteIngrediente(int id)
+        public async Task<IHttpActionResult> DeleteIngredient(int id)
         {
-            Ingredient ingrediente = db.Ingredientes.Find(id);
-            if (ingrediente == null)
+            Ingredient ingredient = await db.Ingredientes.FindAsync(id);
+            if (ingredient == null)
             {
                 return NotFound();
             }
 
-            db.Ingredientes.Remove(ingrediente);
-            db.SaveChanges();
+            db.Ingredientes.Remove(ingredient);
+            await db.SaveChangesAsync();
 
-            return Ok(ingrediente);
+            return Ok(ingredient);
         }
 
         protected override void Dispose(bool disposing)
@@ -111,7 +111,7 @@ namespace Api.Controllers
             base.Dispose(disposing);
         }
 
-        private bool IngredienteExists(int id)
+        private bool IngredientExists(int id)
         {
             return db.Ingredientes.Count(e => e.IngredientId == id) > 0;
         }

@@ -19,7 +19,7 @@ namespace BackendCook.Controllers
         // GET: IngredientMerges
         public async Task<ActionResult> Index()
         {
-            var ingredientMerges = db.IngredientMerges.Include(i => i.Ingredient);
+            var ingredientMerges = db.IngredientMerge.Include(i => i.Ingredient);
             return View(await ingredientMerges.ToListAsync());
         }
 
@@ -30,7 +30,7 @@ namespace BackendCook.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
+            IngredientMerge ingredientMerge = await db.IngredientMerge.FindAsync(id);
             if (ingredientMerge == null)
             {
                 return HttpNotFound();
@@ -54,7 +54,7 @@ namespace BackendCook.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.IngredientMerges.Add(ingredientMerge);
+                db.IngredientMerge.Add(ingredientMerge);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -70,7 +70,7 @@ namespace BackendCook.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
+            IngredientMerge ingredientMerge = await db.IngredientMerge.FindAsync(id);
             if (ingredientMerge == null)
             {
                 return HttpNotFound();
@@ -103,7 +103,7 @@ namespace BackendCook.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
+            IngredientMerge ingredientMerge = await db.IngredientMerge.FindAsync(id);
             if (ingredientMerge == null)
             {
                 return HttpNotFound();
@@ -116,8 +116,8 @@ namespace BackendCook.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
-            db.IngredientMerges.Remove(ingredientMerge);
+            IngredientMerge ingredientMerge = await db.IngredientMerge.FindAsync(id);
+            db.IngredientMerge.Remove(ingredientMerge);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

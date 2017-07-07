@@ -18,6 +18,6 @@ namespace Domain
         [Display(Name = "Name")]
         public string Name { get; set; }
         [Required(ErrorMessage = "The field {0} is required")]
-        public virtual Collection<CuisineGroup> Recipes { get; set; }
+        public virtual Collection<CuisineMerge> Recipes { get; set; }
     }
 }

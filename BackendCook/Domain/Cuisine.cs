@@ -17,7 +17,7 @@ namespace Domain
         [MaxLength(50, ErrorMessage = "The maximun length for field {0} is {1} characters")]
         [Display(Name = "Name")]
         public string Name { get; set; }
-
-        public virtual Collection<CuisineMerge> CuisineMerge { get; set; }
+        [Required(ErrorMessage = "The field {0} is required")]
+        public virtual Collection<CuisineGroup> Recipes { get; set; }
     }
 }

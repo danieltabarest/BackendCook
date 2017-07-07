@@ -125,33 +125,8 @@ namespace BackendCook.Controllers
             }
             base.Dispose(disposing);
         }
-
-
-        /*******************************/
-        // GET: IngredientMerges
-        public async Task<ActionResult> IndexMerges()
-        {
-            var ingredientMerges = db.IngredientMerges.Include(i => i.Ingredient);
-            return View(await ingredientMerges.ToListAsync());
-        }
-
-        // GET: IngredientMerges/Details/5
-        public async Task<ActionResult> DetailsMerges(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
-            if (ingredientMerge == null)
-            {
-                return HttpNotFound();
-            }
-            return View(ingredientMerge);
-        }
-
-        // GET: IngredientMerges/Create
-        public async Task<ActionResult> CreateMerge(int? id)
+        /*****************group ingrediente**/
+        public async Task<ActionResult> CreateGroup(int? id)
         {
             try
             {
@@ -165,82 +140,95 @@ namespace BackendCook.Controllers
                     return HttpNotFound();
                 }
 
-                var view = new IngredientMerge { IngredientId = ingredientes.IngredientId, };
+                var view = new IngredientGroups { IngredientId = ingredientes.IngredientId, };
                 return View(view);
             }
             catch (Exception ex)
             {
                 return View();
             }
-            //ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name");
-            //return View();
         }
-
-        // POST: IngredientMerges/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateMerge(IngredientMerge ingredientMerge)
+        // GET: IngredientGroups
+        public async Task<ActionResult> IndexGroup()
         {
-            if (ModelState.IsValid)
-            {
-                db.IngredientMerges.Add(ingredientMerge);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name", ingredientMerge.IngredientId);
-            return View(ingredientMerge);
+            return View(await db.IngredientGroups.ToListAsync());
         }
 
-        // GET: IngredientMerges/Edit/5
-        public async Task<ActionResult> EditMerges(int? id)
+        // GET: IngredientGroups/Details/5
+        public async Task<ActionResult> DetailsGroup(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
-            if (ingredientMerge == null)
+            IngredientGroups ingredientGroups = await db.IngredientGroups.FindAsync(id);
+            if (ingredientGroups == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name", ingredientMerge.IngredientId);
-            return View(ingredientMerge);
+            return View(ingredientGroups);
         }
 
-        // POST: IngredientMerges/Edit/5
+        // GET: IngredientGroups/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
+
+
+
+        // POST: IngredientGroups/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditMerges([Bind(Include = "IngredientMergeId,Name,IngredientId")] IngredientMerge ingredientMerge)
+        public async Task<ActionResult> CreateGroup( IngredientGroups ingredientGroups)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ingredientMerge).State = EntityState.Modified;
+                db.IngredientGroups.Add(ingredientGroups);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.IngredientId = new SelectList(db.Ingredientes, "IngredientId", "Name", ingredientMerge.IngredientId);
-            return View(ingredientMerge);
+            
+            return View(ingredientGroups);
         }
 
-        // GET: IngredientMerges/Delete/5
-        public async Task<ActionResult> DeleteMerges(int? id)
+        // GET: IngredientGroups/Edit/5
+        public async Task<ActionResult> EditGroup(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            IngredientMerge ingredientMerge = await db.IngredientMerges.FindAsync(id);
-            if (ingredientMerge == null)
+            IngredientGroups ingredientGroups = await db.IngredientGroups.FindAsync(id);
+            if (ingredientGroups == null)
             {
                 return HttpNotFound();
             }
-            return View(ingredientMerge);
+            return View(ingredientGroups);
         }
+
+        // POST: IngredientGroups/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "IngredientGroupId,Name")] IngredientGroups ingredientGroups)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(ingredientGroups).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(ingredientGroups);
+        }
+
+ 
+  
+
+    
 
     }
 }

@@ -18,6 +18,10 @@ namespace Domain
         [Display(Name = "Name")]
         public string Name { get; set; }
 
+        public int RecipeId { get; set; }
+
+        public virtual Recipe Recipe { get; set; }
+
         public int CuisineId { get; set; }
 
         public virtual Cuisine Cuisine { get; set; }

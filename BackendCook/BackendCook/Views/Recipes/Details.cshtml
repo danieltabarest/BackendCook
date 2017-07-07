@@ -62,5 +62,90 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.RecipeId }) |
+    @Html.ActionLink("Create Ingredient Merges ", "CreateIngredientMerges", new { id = Model.RecipeId }) |
+    @Html.ActionLink("Create Cuisine Merges", "CreateCuisineMerges", new { id = Model.RecipeId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Ingredient Merge</h4>
+        @if (Model.IngredientMerge.Count == 0)
+        {
+            <h5>No Ingredient Merge registered yet</h5>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IngredientMerge.FirstOrDefault().Name)
+                    </th>
+                    <th>
+                        @*#Teams*@
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.IngredientMerge.OrderBy(g => g.Name))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.TournamentTeams.Count)*@
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditGroup", new { id = item.IngredientMergeId })
+                            @Html.ActionLink("Details", "DetailsGroup", new { id = item.IngredientMergeId })
+                            @Html.ActionLink("Delete", "DeleteGroup", new { id = item.IngredientMergeId })
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        }
+    </div>
+    <div class="col-md-6">
+        <h4>Cuisine Group</h4>
+        @if (Model.CuisineMerge.Count == 0)
+        {
+            <h5>No Cuisine Merge registered yet</h5>
+        }
+        else
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CuisineMerge.FirstOrDefault().Name)
+                    </th>
+                    <th>
+                        @*# Matches*@
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model.CuisineMerge.OrderBy(g => g.Name))
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.Matches.Count)*@
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditDate", new { id = item.CuisineMergeId })
+                            @Html.ActionLink("Details", "DetailsDate", new { id = item.CuisineMergeId })
+                            @Html.ActionLink("Delete", "DeleteDate", new { id = item.CuisineMergeId })
+                        </td>
+                    </tr>
+                }
+            </table>
+
+        }
+
+    </div>
+
+</div>

@@ -273,6 +273,8 @@
     <Content Include="Views\IngredientMerges\Edit.cshtml" />
     <Content Include="Views\IngredientMerges\Index.cshtml" />
     <Content Include="Views\Ingredients\CreateMerge.cshtml" />
+    <Content Include="Views\Recipes\CreateIngredientMerges.cshtml" />
+    <Content Include="Views\Recipes\CreateCuisineMerges.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

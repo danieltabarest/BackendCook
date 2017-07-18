@@ -23,7 +23,7 @@ namespace BackendCook
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             //here in Application Start we will start Sql Dependency
-            SqlDependency.Start(con);
+            //SqlDependency.Start(con);
 
         }
 

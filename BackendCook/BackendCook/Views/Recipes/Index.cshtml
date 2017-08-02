@@ -24,10 +24,7 @@
             @Html.DisplayNameFor(model => model.Rating)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CuisineId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IngredientId)
+            @Html.DisplayNameFor(model => model.Image)
         </th>
         <th></th>
     </tr>
@@ -47,10 +44,10 @@
             @Html.DisplayFor(modelItem => item.Rating)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CuisineId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IngredientId)
+            @if (!string.IsNullOrEmpty(item.Image))
+            {
+                <img src="@Url.Content(item.Image)" alt="Image" style="width:100px;height:150px;max-width: 100%; height: auto;" />
+            }
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RecipeId }) |

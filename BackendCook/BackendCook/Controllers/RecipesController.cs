@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Domain;
 using BackendCook.Models;
+using BackendCook.Classes;
 
 namespace BackendCook.Controllers
 {
@@ -51,17 +52,40 @@ namespace BackendCook.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "RecipeId,Name,Direction,Rating,ChefId,CuisineId,IngredientId")] Recipe recipe)
+        public async Task<ActionResult> Create(RecipeView view)
         {
             if (ModelState.IsValid)
             {
+                var pic = string.Empty;
+                var folder = "~/Content/Photos";
+
+                if (view.LogoFile != null)
+                {
+                    pic = FileUpload.UploadPhoto(view.LogoFile, folder);
+                    pic = string.Format("{0}/{1}", folder, pic);
+                }
+                var recipe = ToRecipe(view);
+                recipe.Image = pic;
                 db.Recipes.Add(recipe);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", recipe.ChefId);
-            return View(recipe);
+            ViewBag.ChefId = new SelectList(db.Chefs, "ChefId", "FirstName", view.ChefId);
+            return View(view);
+        }
+
+        private Recipe ToRecipe(RecipeView view)
+        {
+            return new Recipe
+            {
+                Name = view.Name,
+                Direction = view.Direction,
+                ChefId = view.ChefId,
+                Image = view.Image,
+                Rating = view.Rating,
+                RecipeId = view.RecipeId
+            };
         }
 
         // GET: Recipes/Edit/5

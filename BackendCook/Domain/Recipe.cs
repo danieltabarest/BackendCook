@@ -32,6 +32,8 @@ namespace Domain
 
         public int IngredientId { get; set; }
 
+        public string Image{ get; set; }
+
         public virtual Collection<IngredientMerge> IngredientMerge { get; set; }
 
         public virtual Collection<CuisineMerge> CuisineMerge { get; set; }

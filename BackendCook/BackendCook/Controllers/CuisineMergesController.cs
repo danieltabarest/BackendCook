@@ -126,7 +126,7 @@ namespace BackendCook.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+               db.Dispose(); 
             }
             base.Dispose(disposing);
         }
